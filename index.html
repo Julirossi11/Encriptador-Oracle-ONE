@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html lang ="es">
+	<head>
+		<meta charset="UTF-8">
+		<title>ENCRIPTADOR-DESENCRIPTADOR DE TEXTO</title>
+
+		<link rel="stylesheet" href="DisenhoEncriptador.css">
+
+	</head>
+
+	<body>
+
+		<header>
+			<h1 class="titulo-principal">ENCRIPTADOR-DESENCRIPTADOR DE TEXTO</h1>
+            
+        </header>
+
+
+		<div class="Bloque">
+			<div class="panelInput">
+				<input id="text-input"  name = "Entrada" type="text"  placeholder="Ingrese en texto aquí(sin acentos ni mayusculas)"></input>
+			</div>
+		
+			<div class="panelOutput">
+				<h2>Resultado</h2>
+				<div class="cuadroDerecho"><textarea id="texto2" name = "name" rows="8" cols="80"></textarea></div>
+			</div>
+		
+			<div class="botones">
+				<button id="btn-Encriptar" onclick= "encriptar()";>Encriptar</button>
+		
+				<button id="btn-Desencriptar" onclick= "desencriptar()";>Desencriptar</button>
+		
+				<button id="btn-Copiar" onclick="copiarTexto()";>Copiar</button>
+
+				<footer>&copy; Julian Rossi</footer>
+			</div>
+		</div>
+		
+		
+	</body>
+
+
+
+
+
+</html>
+
+
+<script>
+
+	function saltolinea() {
+
+	document.write("<br>");    
+    document.write("<br>");    
+    document.write("<br>");
+
+	}
+
+	function imprimir(mensaje) {
+
+		document.write(mensaje);
+		saltolinea();
+	}
+
+	function lista(){
+
+		var texto = document.querySelector("input");
+		texto.focus();
+
+		a = texto.value;
+		textoCorregido = a.toLowerCase();
+
+		var arrayTexto = Array.from(textoCorregido);
+		console.log(arrayTexto)
+
+		//imprimir(arrayTexto)
+
+		return arrayTexto
+		
+	}
+
+	function encriptar(){
+
+
+		var textoEnLista = lista()
+		var cantidad = parseInt(textoEnLista.length)
+		var contador = 1;
+    	while( contador <= cantidad) {
+        	var aparece = false;
+
+        	for (var posicion = 0; posicion < textoEnLista.length; posicion++){
+
+            	if(textoEnLista[posicion] == "e"){
+                	
+                	textoEnLista[posicion] = "enter";
+                	aparece = true;
+                	
+                	break;
+                }
+
+                if(textoEnLista[posicion] == "i"){
+                	
+                	textoEnLista[posicion] = "imes";
+                	aparece = true;
+                	
+                	break;
+                }
+
+                if(textoEnLista[posicion] == "a"){
+                	
+                	textoEnLista[posicion] = "ai";
+                	aparece = true;
+                	
+                	break;
+                }
+
+                if(textoEnLista[posicion] == "o"){
+                	
+                	textoEnLista[posicion] = "ober";
+                	aparece = true;
+                	
+                	break;
+                }
+
+                if(textoEnLista[posicion] == "u"){
+                	
+                	textoEnLista[posicion] = "ufat";
+                	aparece = true;
+                	
+                	break;
+                }
+
+            if (aparece == false){
+            	contador++;
+            }
+        }
+
+       }
+
+       	var txtCifrado = textoEnLista.join("");
+		document.getElementById("texto2").innerHTML = txtCifrado;
+		                     
+    }
+    
+	
+    //button.onclick = encriptar;
+
+
+    function desencriptar(){ 
+
+		var texto = document.querySelector("input");
+		texto.focus();
+
+		a = texto.value;
+		textoCorregido = a.toLowerCase();
+
+		let TextoDividido = textoCorregido.split(" ");
+		console.log(TextoDividido)
+
+		var nuevaLista = [];
+
+        for (var cambio of TextoDividido) {
+        	cambio = cambio.replaceAll('enter','e');
+      		cambio = cambio.replaceAll('imes','i');
+      		cambio = cambio.replaceAll('ai','a');
+      		cambio = cambio.replaceAll('ober','o');
+      		cambio = cambio.replaceAll('ufat','u');
+      		nuevaLista.push(cambio);
+
+      	}
+      
+
+    	//imprimir(nuevaLista)
+        var txtDesencriptado = nuevaLista.join(" ");
+        document.getElementById("texto2").innerHTML = txtDesencriptado;
+    }
+
+	function copiarTexto(){
+
+		var contenido = document.querySelector("#texto2");
+		//Selecciona el contenido del cuadro de texto(punutalmente)
+		contenido.select();
+		//Ejecuto el comando copiar
+		document.execCommand("copy");
+		alert("Mensaje copiado");
+	}
+
+	var button = document.getElementById("btn-Desencriptar").value;
+	var button = document.getElementById("btn-Encriptar").value;
+	//var button =document.getElementById("btn-copiar").value;
+
+
+
+			
+
+</script>
